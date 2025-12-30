@@ -2,7 +2,7 @@ const User = require('../model/User');
 const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
-  console.log('Auth controller register content-type:', req.headers['content-type']);
+  // console.log('Auth controller register content-type:', req.headers['content-type']);
   let body = req.body;
   if (typeof body === 'string' && body.trim()) {
     try {
@@ -30,7 +30,7 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  console.log('Auth controller login content-type:', req.headers['content-type']);
+  // console.log('Auth controller login content-type:', req.headers['content-type']);
   let body = req.body;
   if (typeof body === 'string' && body.trim()) {
     try {
@@ -43,10 +43,10 @@ const login = async (req, res) => {
   const { email, password } = (body && typeof body === 'object') ? body : {};
   try {
     const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ msg: 'Invalid credentials' });
+    if (!user) return res.status(400).json({ msg: 'email not found' });
 
     const isMatch = await user.matchPassword(password);
-    if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+    if (!isMatch) return res.status(400).json({ msg: 'password not correct' });
 
     const payload = { user: { id: user.id } };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });

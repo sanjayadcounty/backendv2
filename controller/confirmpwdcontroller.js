@@ -5,7 +5,7 @@ const verifyAdminPassword = async (req, res) => {
   try {
     const { password } = req.body;
    const fileId = req.params.id;
-   console.log("File ID:", fileId);
+  //  console.log("File ID:", fileId);
     const file = await uploadfile.findById(fileId);
     if (!file) {
       return res.status(404).json({ message: "File not found" });

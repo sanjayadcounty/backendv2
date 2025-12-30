@@ -16,6 +16,8 @@ app.use(cookieParser());
 app.use(cors({
   origin: [
     "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:8000",
     "http://192.168.1.82:3000"
   ],
   credentials: true
@@ -33,13 +35,11 @@ app.use('/api/auth', require('./routes/authroutes'));
 app.use('/api/upload', require('./routes/fileroutes'));
 app.use('/api/users', require('./routes/userroutes'));
 
-const HOST = "0.0.0.0";
 
-app.listen(PORT, HOST, () => {
-  console.log(`Backend running on http://${HOST}:${PORT}`);
+
+
+app.listen(PORT,  () => {
+  console.log(`Backend running on ${PORT}`);
 });
 
-// Server
-// app.listen(port, () => {
-//   console.log(`Server running on port ${port}`);
-// });
+

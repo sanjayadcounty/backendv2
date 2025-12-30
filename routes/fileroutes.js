@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
 router.get('/user/:id', async (req, res) => {
   try {
     const userId = req.params.id; // 👈 params.id IS userId
-    console.log("User ID:", userId);
+    // console.log("User ID:", userId);
 
     const files = await UploadFile.find({ userId }); // ✅ correct query
 

@@ -1,13 +1,23 @@
-const mongoose = require('mongoose');
-const local_URL = 'mongodb://localhost:27017/CDN';
+const mongoose = require("mongoose");
+const dotenv = require('dotenv')
+
+dotenv.config()
+
 const connectDB = async () => {
-    try {
-        await mongoose.connect(local_URL);
-        console.log('MongoDB connected successfully');
-    } catch (error) {
-        console.error('MongoDB connection error:', error);
-        process.exit(1);
+  try {
+    const mongoURI = process.env.MONGO_URI;
+
+    if (!mongoURI) {
+      throw new Error("MONGO_URI is not defined in environment variables");
     }
+
+    await mongoose.connect(mongoURI);
+
+    console.log("✅ MongoDB connected successfully");
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error.message);
+    process.exit(1);
+  }
 };
 
 module.exports = connectDB;
